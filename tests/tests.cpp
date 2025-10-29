@@ -3,5 +3,5 @@
 
 TEST(DynaicArrTest ,WORKS)
 {
-    DynamicArray d{};
+    DynamicArray<int> d{3};
 }
