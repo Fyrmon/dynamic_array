@@ -3,6 +3,9 @@
 
 TEST(DynaicArrTest ,ConstructingWithSize)
 {
-    DynamicArray<int> d{3};
-    EXPECT_EQ(d.size(),3);
+    DynamicArray<int> test(3);
+    EXPECT_EQ(test.size(),3);
+
+    DynamicArray<int> test2(0);
+    EXPECT_EQ(test2.size(),1);
 }
