@@ -1,12 +1,16 @@
 #include <iostream>
 #include "dynamicArray.hpp"
+#include <vector>
 
 int main()
 {
     DynamicArray<int> arr{1,2,3,4,5,6};
-    const DynamicArray<int> new_arr{1,22,3};
+    // DynamicArray<int> a(5,3);
+    // std::cout<< a<< '\n';
     std::cout<<arr<<'\n';
-    std::cout<<std::boolalpha;
-    std::cout<< (arr==std::initializer_list{1,2,3,4,5,6}) <<'\n';
+    arr.shrink(3);
+    std::cout<<arr<<'\n';
+    std::cout<<arr.capacity()<<'\n';
+    
     return 0;
 }
