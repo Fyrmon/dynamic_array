@@ -11,19 +11,22 @@ public:
 private:
     T* m_arr{ nullptr };
     size_type m_size{};
+    size_type m_capacity{};
 public:
 
     DynamicArray() = delete;
     // to do: Add others constructor...move,copy...
     DynamicArray(int size)
+    : m_size{ (size > 0) ? size_type(size) : 1ul}
+    , m_capacity{ m_size }
     {
-        m_size = size ? size : 1;
         m_arr = new type_name [m_size];
     }
 
     DynamicArray(std::initializer_list<T> list)
+    : m_size{ list.size() }
+    , m_capacity{ m_size }
     {
-        m_size = list.size();
         m_arr = new type_name[m_size];
         size_type i{0};
         for(auto it{ list.begin()}; it!=list.end(); ++it)
@@ -34,7 +37,15 @@ public:
 
     }
 
-        ~DynamicArray()
+    DynamicArray(int size, const T value)
+    : m_size{ size_type(size) }
+    , m_capacity{ m_size }
+    {
+        m_arr = new type_name[m_size]{value};
+    }
+
+    
+    ~DynamicArray()
     {
         delete[] m_arr;
     }
@@ -59,7 +70,15 @@ public:
         return m_arr[i];
     }
 
-    size_type size() const { return m_size; }
+    size_type size() const noexcept
+    { return m_size; }
+    size_type capacity() const noexcept 
+    { return m_capacity;}
+
+    void shrink(int new_size)
+    { 
+        m_size = m_size < new_size ? m_size: new_size; 
+    }
 
     friend bool operator==(const DynamicArray<T>& arr, const std::initializer_list<T>& list)
     {
@@ -76,7 +95,7 @@ public:
         return true;
     }
 
-    friend std::ostream& operator<<(std::ostream& out, DynamicArray<T>& arr)
+    friend std::ostream& operator<<(std::ostream& out, const DynamicArray<T>& arr)
     {
         for(int i{0}; i < arr.size(); ++i)
             out<<arr[i]<<' ';
