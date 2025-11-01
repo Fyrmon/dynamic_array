@@ -75,6 +75,11 @@ public:
     size_type capacity() const noexcept 
     { return m_capacity;}
 
+    bool empty() const noexcept
+    {
+        return m_size == 0;
+    }
+
     void shrink(int new_size)
     { 
         m_size = m_size < new_size ? m_size: new_size; 

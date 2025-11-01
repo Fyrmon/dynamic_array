@@ -53,3 +53,13 @@ TEST_F(DynamicArrayTest, EqualityOperator)
     EXPECT_FALSE((testArr2 == std::initializer_list{1,2,3}));
 
 }
+
+TEST_F(DynamicArrayTest, Empty)
+{
+    EXPECT_FALSE(testArr.empty());
+    EXPECT_FALSE(testArr2.empty());
+
+    testArr.shrink(0);
+    EXPECT_TRUE(testArr.empty());
+
+}
