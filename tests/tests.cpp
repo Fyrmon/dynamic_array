@@ -1,11 +1,22 @@
 #include <gtest/gtest.h>
 #include "dynamicArray.hpp"
 
-TEST(DynaicArrTest ,ConstructingWithSize)
+ class DynamicArrayTest : public ::testing::Test
 {
-    DynamicArray<int> test(3);
-    EXPECT_EQ(test.size(),3);
+  protected:
+    DynamicArray<int> testArr{1,2,3};
+    DynamicArray<int> testArr2{1};
 
-    DynamicArray<int> test2(0);
-    EXPECT_EQ(test2.size(),1);
+};
+
+TEST_F(DynamicArrayTest ,ConstructingWithSize)
+{
+    EXPECT_EQ(testArr.size(),3);
+
+    EXPECT_EQ(testArr2.size(),1);
+}
+
+TEST_F(DynamicArrayTest, Shrink)
+{
+    testArr.shrink(1);
 }
