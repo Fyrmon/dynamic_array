@@ -63,3 +63,24 @@ TEST_F(DynamicArrayTest, Empty)
     EXPECT_TRUE(testArr.empty());
 
 }
+
+TEST_F(DynamicArrayTest, Reserve)
+{
+    testArr.reserve(10);
+    EXPECT_EQ(testArr.size(),3);
+    EXPECT_EQ(testArr.capacity(),10);
+    EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
+
+    testArr2.reserve(5);
+    EXPECT_EQ(testArr2.size(),1);
+    EXPECT_EQ(testArr2.capacity(),5);
+    EXPECT_TRUE((testArr2 == std::initializer_list{1}));
+}
+
+TEST_F(DynamicArrayTest, ReserveWithSmallerCap)
+{
+    testArr.reserve(2);
+    EXPECT_EQ(testArr.size(),3);
+    EXPECT_EQ(testArr.capacity(),3);
+    EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
+}

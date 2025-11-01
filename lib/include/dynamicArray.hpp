@@ -9,7 +9,7 @@ public:
     using type_name = T;
     using size_type = std::size_t;
 private:
-    T* m_arr{ nullptr };
+    type_name* m_arr{ nullptr };
     size_type m_size{};
     size_type m_capacity{};
 public:
@@ -83,6 +83,20 @@ public:
     void shrink(int new_size)
     { 
         m_size = m_size < new_size ? m_size: new_size; 
+    }
+
+    void reserve(int new_cap)
+    {
+        if(new_cap > m_capacity)
+        {
+            type_name* new_arr = new type_name [new_cap]{0};
+            m_capacity = new_cap;
+            for(size_type i {0}; i < m_size; ++i)
+                new_arr[i] = m_arr[i];
+
+            delete[] m_arr;
+            m_arr = new_arr;
+        }
     }
 
     friend bool operator==(const DynamicArray<T>& arr, const std::initializer_list<T>& list)
