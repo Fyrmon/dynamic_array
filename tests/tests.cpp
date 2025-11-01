@@ -43,3 +43,13 @@ TEST_F(DynamicArrayTest, Shrink)
     EXPECT_EQ(testArr.size(),1);
     EXPECT_EQ(testArr.capacity(),3);
 }
+
+TEST_F(DynamicArrayTest, EqualityOperator)
+{
+    EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
+    EXPECT_TRUE((testArr2 == std::initializer_list{1}));
+
+    EXPECT_FALSE((testArr == std::initializer_list{1,2,3,4,5}));
+    EXPECT_FALSE((testArr2 == std::initializer_list{1,2,3}));
+
+}
