@@ -114,3 +114,11 @@ TEST_F(DynamicArrayTest, End)
     EXPECT_EQ(*(testArr2.end()-1), 1);
     EXPECT_EQ(*(testArr2.cend()-1), 1);
 }
+
+TEST_F(DynamicArrayTest, Rbegin)
+{
+    EXPECT_EQ(*(testArr.rbegin()), 3);
+    EXPECT_EQ(*(testArr.rbegin()+1), 2);
+
+    EXPECT_EQ(*(testArr2.rbegin()), 1);
+}

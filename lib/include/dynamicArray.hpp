@@ -1,6 +1,7 @@
 #ifndef DYNAMICARRAY_HPP
 #define DYNAMICARRAY_HPP
 #include <initializer_list>
+#include <iterator>
 
 template<typename T>
 class DynamicArray
@@ -9,6 +10,7 @@ public:
     using type_name = T;
     using size_type = std::size_t;
     using iterator = type_name*;
+    using reverse_iterator = std::reverse_iterator<type_name*>;
 private:
     type_name* m_arr{ nullptr };
     size_type m_size{};
@@ -102,15 +104,30 @@ public:
 
     // ITERATORS
     iterator begin()
-    { return &m_arr[0]; }
+    { 
+        return m_arr; 
+    }
+
     const iterator cbegin() const
-    { return &m_arr[0]; }
+    { 
+        return m_arr; 
+    }
 
     iterator end()
-    { return &m_arr[m_size]; }
+    { 
+        return m_arr+m_size; 
+    }
     const iterator cend() const
-    { return &m_arr[m_size]; }
+    { 
+        return m_arr+m_size; 
+    }
 
+    reverse_iterator rbegin()
+    {
+        return reverse_iterator(end());
+    }
+
+    // OPERATOR OVERLOADS
     friend bool operator==(const DynamicArray<T>& arr, const std::initializer_list<T>& list)
     {
         if( arr.size() != list.size() ) 
