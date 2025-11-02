@@ -84,3 +84,11 @@ TEST_F(DynamicArrayTest, ReserveWithSmallerCap)
     EXPECT_EQ(testArr.capacity(),3);
     EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
 }
+
+TEST_F(DynamicArrayTest, Begin)
+{
+    EXPECT_EQ(*testArr.begin(),1);
+    EXPECT_NE(*testArr.begin(),2);
+
+    EXPECT_EQ(*testArr2.begin(), 1);
+}

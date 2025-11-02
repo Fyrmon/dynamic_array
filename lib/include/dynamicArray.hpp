@@ -8,6 +8,7 @@ class DynamicArray
 public:
     using type_name = T;
     using size_type = std::size_t;
+    using iterator = type_name*;
 private:
     type_name* m_arr{ nullptr };
     size_type m_size{};
@@ -98,6 +99,12 @@ public:
             m_arr = new_arr;
         }
     }
+
+    // ITERATORS
+    iterator begin()
+    { return &m_arr[0]; }
+    const iterator cbegin() const
+    { return &m_arr[0]; }
 
     friend bool operator==(const DynamicArray<T>& arr, const std::initializer_list<T>& list)
     {
