@@ -106,6 +106,11 @@ public:
     const iterator cbegin() const
     { return &m_arr[0]; }
 
+    iterator end()
+    { return &m_arr[m_size]; }
+    const iterator cend() const
+    { return &m_arr[m_size]; }
+
     friend bool operator==(const DynamicArray<T>& arr, const std::initializer_list<T>& list)
     {
         if( arr.size() != list.size() ) 
