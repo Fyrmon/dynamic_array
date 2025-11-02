@@ -124,23 +124,34 @@ public:
         return m_arr; 
     }
 
+    reverse_iterator rbegin() const
+    {
+        return reverse_iterator(end());
+    }
+
+    const reverse_iterator crbegin() const
+    {
+        return reverse_iterator(end());
+    }
+
     iterator end() const
     { 
         return m_arr+m_size; 
     }
+
     const_iterator cend() const
     { 
         return m_arr+m_size; 
     }
 
-    reverse_iterator rbegin()
-    {
-        return reverse_iterator(end());
-    }
-
-    reverse_iterator rend()
+    reverse_iterator rend() const
     { 
         return reverse_iterator(begin()); 
+    }
+
+    const reverse_iterator crend() const
+    {
+        return reverse_iterator(begin());
     }
 
     // OPERATOR OVERLOADS

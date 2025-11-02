@@ -117,10 +117,21 @@ TEST_F(DynamicArrayTest, End)
 
 TEST_F(DynamicArrayTest, Rbegin)
 {
+    EXPECT_EQ(*(testArr.rbegin()), *(testArr.end()-1));
     EXPECT_EQ(*(testArr.rbegin()), 3);
     EXPECT_EQ(*(testArr.rbegin()+1), 2);
 
+    EXPECT_EQ(*(testArr2.rbegin()), *(testArr2.end()-1));
     EXPECT_EQ(*(testArr2.rbegin()), 1);
+}
+
+TEST_F(DynamicArrayTest, Crbegin)
+{
+    EXPECT_EQ(*(testArr.crbegin()), *(testArr.end()-1));
+    EXPECT_EQ(*(testArr.crbegin()), 3);
+
+    EXPECT_EQ(*(testArr2.crbegin()), *(testArr2.end()-1));
+    EXPECT_EQ(*(testArr2.crbegin()), 1);
 }
 
 TEST_F(DynamicArrayTest, Rend)
@@ -131,4 +142,13 @@ TEST_F(DynamicArrayTest, Rend)
 
     EXPECT_EQ(*(testArr2.rend()-1), *testArr2.begin());
     EXPECT_EQ(*(testArr2.rend()-1),1);
+}
+
+TEST_F(DynamicArrayTest, Crend)
+{
+    EXPECT_EQ(*(testArr.crend()-1),*(testArr.begin()));
+    EXPECT_EQ(*(testArr.crend()-1), 1);
+
+    EXPECT_EQ(*(testArr2.crend()-1),*(testArr2.begin()));
+    EXPECT_EQ(*(testArr2.crend()-1), 1);
 }
