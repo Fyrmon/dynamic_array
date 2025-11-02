@@ -122,3 +122,13 @@ TEST_F(DynamicArrayTest, Rbegin)
 
     EXPECT_EQ(*(testArr2.rbegin()), 1);
 }
+
+TEST_F(DynamicArrayTest, Rend)
+{
+    EXPECT_EQ(*(testArr.rend()-1), *testArr.begin());
+    EXPECT_EQ(*(testArr.rend()-1),1);
+    EXPECT_EQ(*(testArr.rend()-2),2);
+
+    EXPECT_EQ(*(testArr2.rend()-1), *testArr2.begin());
+    EXPECT_EQ(*(testArr2.rend()-1),1);
+}
