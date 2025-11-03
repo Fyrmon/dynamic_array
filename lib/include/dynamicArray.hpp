@@ -81,7 +81,7 @@ public:
         return m_arr[i];
     }
 
-    type_name& front()
+    type_name& front() noexcept
     {
         return m_arr[0];
     }
@@ -89,6 +89,16 @@ public:
     const type_name& front() const noexcept
     {
         return m_arr[0];
+    }
+
+    type_name& back() noexcept
+    {
+        return m_arr[m_size-1];
+    }
+
+    const type_name& back() const noexcept
+    {
+        return m_arr[m_size-1];
     }
 
     size_type size() const noexcept
