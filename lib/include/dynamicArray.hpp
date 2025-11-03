@@ -2,6 +2,7 @@
 #define DYNAMICARRAY_HPP
 #include <initializer_list>
 #include <iterator>
+#include <limits>
 
 template<typename T>
 class DynamicArray
@@ -121,6 +122,13 @@ public:
     size_type size() const noexcept
     { 
         return m_size; 
+    }
+
+    const size_type max_size() const noexcept
+    {
+        // not really true as the docs say that at runtime 
+        // it might be smaller due to amount of RAM
+        return std::numeric_limits<size_type>::max() / sizeof(type_name);
     }
 
     void reserve(int new_cap)
