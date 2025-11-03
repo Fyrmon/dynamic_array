@@ -53,13 +53,13 @@ public:
         delete[] m_arr;
     }
 
-    const type_name& operator[](int i) const 
-    {
-        return m_arr[i];
-    }
+    // ELEMENT ACCESS
 
-    type_name operator[](int i)
+    type_name& at(int i) 
     {
+        if(m_size <= i || 0 > i)
+            throw std::out_of_range("at(i) wrong index");
+        
         return m_arr[i];
     }
 
@@ -71,12 +71,44 @@ public:
         return m_arr[i];
     }
 
-    type_name& at(int i) 
+    type_name& operator[](int i)
     {
-        if(m_size <= i || 0 > i)
-            throw std::out_of_range("at(i) wrong index");
-        
         return m_arr[i];
+    }
+
+    const type_name& operator[](int i) const
+    {
+        return m_arr[i];
+    }
+
+    type_name& front() noexcept
+    {
+        return m_arr[0];
+    }
+
+    const type_name& front() const noexcept
+    {
+        return m_arr[0];
+    }
+
+    type_name& back() noexcept
+    {
+        return m_arr[m_size-1];
+    }
+
+    const type_name& back() const noexcept
+    {
+        return m_arr[m_size-1];
+    }
+
+    type_name* data()
+    {
+        return m_arr;
+    }
+
+    const type_name* data() const
+    {
+        return m_arr;
     }
 
     size_type size() const noexcept
