@@ -38,6 +38,14 @@ TEST_F(DynamicArrayTest, Back)
     EXPECT_EQ(testArr2.back(),1);
 }
 
+TEST_F(DynamicArrayTest, Data)
+{
+    EXPECT_EQ(testArr.data()[0], testArr.front());
+    EXPECT_EQ(testArr.data()[testArr.size()-1], testArr.back());
+    
+    EXPECT_EQ(testArr2.data()[0], testArr.front());
+}
+
 TEST_F(DynamicArrayTest ,Size)
 {
     EXPECT_EQ(testArr.size(),3);

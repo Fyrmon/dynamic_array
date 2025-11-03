@@ -101,6 +101,16 @@ public:
         return m_arr[m_size-1];
     }
 
+    type_name* data()
+    {
+        return m_arr;
+    }
+
+    const type_name* data() const
+    {
+        return m_arr;
+    }
+
     size_type size() const noexcept
     { 
         return m_size; 
