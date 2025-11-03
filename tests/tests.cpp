@@ -46,39 +46,6 @@ TEST_F(DynamicArrayTest, Data)
     EXPECT_EQ(testArr2.data()[0], testArr.front());
 }
 
-TEST_F(DynamicArrayTest ,Size)
-{
-    EXPECT_EQ(testArr.size(),3);
-    EXPECT_EQ(testArr2.size(),1);
-}
-
-
-TEST_F(DynamicArrayTest, Capacity)
-{
-    EXPECT_EQ(testArr.capacity(), 3);
-    EXPECT_EQ(testArr2.capacity(),1);
-    testArr.shrink(2);
-    EXPECT_EQ(testArr.capacity(), 3);
-}
-
-TEST_F(DynamicArrayTest, Shrink)
-{
-    EXPECT_EQ(testArr.capacity(), 3);
-    testArr.shrink(1);
-    EXPECT_EQ(testArr.size(),1);
-    EXPECT_EQ(testArr.capacity(),3);
-}
-
-TEST_F(DynamicArrayTest, EqualityOperator)
-{
-    EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
-    EXPECT_TRUE((testArr2 == std::initializer_list{1}));
-
-    EXPECT_FALSE((testArr == std::initializer_list{1,2,3,4,5}));
-    EXPECT_FALSE((testArr2 == std::initializer_list{1,2,3}));
-
-}
-
 TEST_F(DynamicArrayTest, Empty)
 {
     EXPECT_FALSE(testArr.empty());
@@ -87,6 +54,12 @@ TEST_F(DynamicArrayTest, Empty)
     testArr.shrink(0);
     EXPECT_TRUE(testArr.empty());
 
+}
+
+TEST_F(DynamicArrayTest ,Size)
+{
+    EXPECT_EQ(testArr.size(),3);
+    EXPECT_EQ(testArr2.size(),1);
 }
 
 TEST_F(DynamicArrayTest, Reserve)
@@ -108,6 +81,44 @@ TEST_F(DynamicArrayTest, ReserveWithSmallerCap)
     EXPECT_EQ(testArr.size(),3);
     EXPECT_EQ(testArr.capacity(),3);
     EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
+}
+
+TEST_F(DynamicArrayTest, Capacity)
+{
+    EXPECT_EQ(testArr.capacity(), 3);
+    EXPECT_EQ(testArr2.capacity(),1);
+    testArr.shrink(2);
+    EXPECT_EQ(testArr.capacity(), 3);
+}
+
+TEST_F(DynamicArrayTest, ShrinkToFit)
+{
+    testArr.shrink(2);
+    EXPECT_EQ(testArr.size(),2);
+    EXPECT_EQ(testArr.capacity(),3);
+
+    testArr.shrink_to_fit();
+    EXPECT_EQ(testArr.size(),2);
+    EXPECT_EQ(testArr.capacity(),2);
+    EXPECT_TRUE((testArr == std::initializer_list{1,2}));
+}
+
+TEST_F(DynamicArrayTest, Shrink)
+{
+    EXPECT_EQ(testArr.capacity(), 3);
+    testArr.shrink(1);
+    EXPECT_EQ(testArr.size(),1);
+    EXPECT_EQ(testArr.capacity(),3);
+}
+
+TEST_F(DynamicArrayTest, EqualityOperator)
+{
+    EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
+    EXPECT_TRUE((testArr2 == std::initializer_list{1}));
+
+    EXPECT_FALSE((testArr == std::initializer_list{1,2,3,4,5}));
+    EXPECT_FALSE((testArr2 == std::initializer_list{1,2,3}));
+
 }
 
 TEST_F(DynamicArrayTest, Begin)

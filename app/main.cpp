@@ -5,8 +5,7 @@
 int main()
 {
     DynamicArray<int> arr{1,2,3,4,5,6,88,66};
-    for(auto it{ arr.rbegin()}; it != arr.rend(); it++)
-        std::cout<<*it<<" ";
-    
+    std::cout<<"Capacity: "<< arr.capacity()<<'\n';
+    std::cout<<"Size: "<< arr.size()<<'\n';
     return 0;
 }
