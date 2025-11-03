@@ -111,24 +111,16 @@ public:
         return m_arr;
     }
 
-    size_type size() const noexcept
-    { 
-        return m_size; 
-    }
-
-    size_type capacity() const noexcept 
-    { 
-        return m_capacity;
-    }
+    // CAPACITY 
 
     bool empty() const noexcept
     {
         return m_size == 0;
     }
 
-    void shrink(int new_size)
+    size_type size() const noexcept
     { 
-        m_size = m_size < new_size ? m_size: new_size; 
+        return m_size; 
     }
 
     void reserve(int new_cap)
@@ -143,6 +135,30 @@ public:
             delete[] m_arr;
             m_arr = new_arr;
         }
+    }
+
+    size_type capacity() const noexcept 
+    { 
+        return m_capacity;
+    }
+
+    void shrink_to_fit()
+    {
+        if(m_capacity > m_size)
+        {
+            m_capacity = m_size;
+            auto* new_arr{ new type_name[m_size] };
+            for( size_type i{ 0ul }; i < m_size; i++)
+                new_arr[i] = m_arr[i];
+            
+            delete[] m_arr;
+            m_arr = new_arr;
+        }
+    }
+
+    void shrink(int new_size)
+    { 
+        m_size = m_size < new_size ? m_size: new_size; 
     }
 
     // ITERATORS
