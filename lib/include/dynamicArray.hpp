@@ -62,6 +62,23 @@ public:
         other.m_capacity=0;
     }
     
+    DynamicArray(iterator begin, iterator end)
+    {
+        const auto range = std::distance(begin,end);
+
+        m_size = range;
+        m_capacity = range;
+
+        if(m_size > 0)
+        {
+            m_arr = new type_name[m_size];
+            std::copy(begin, end, m_arr);
+        }
+        else
+            m_arr = nullptr;
+
+    }
+    
     ~DynamicArray()
     {
         delete[] m_arr;
