@@ -9,6 +9,14 @@
 
 };
 
+TEST_F(DynamicArrayTest, RangeConstructor)
+{
+    DynamicArray<int> range_arr{ testArr.begin(), testArr.end()};
+    EXPECT_TRUE(range_arr==testArr);
+    EXPECT_EQ(range_arr.size(),testArr.size());
+    EXPECT_EQ(range_arr.capacity(),testArr.capacity());
+}
+
 TEST_F(DynamicArrayTest, MoveConstructor)
 {
     DynamicArray<int> mv_arr{ std::move(testArr) };
