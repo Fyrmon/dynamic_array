@@ -9,6 +9,14 @@
 
 };
 
+TEST_F(DynamicArrayTest, SizeConstructor)
+{
+    DynamicArray<int> arr_with_size(5);
+    EXPECT_EQ(arr_with_size.size(), 5);
+    EXPECT_TRUE(arr_with_size==(std::initializer_list{0,0,0,0,0}));
+    EXPECT_FALSE(arr_with_size==(std::initializer_list{0,0,0}));
+}
+
 TEST_F(DynamicArrayTest, CopyConstructor)
 {
     DynamicArray<int> copy_arr{ testArr };

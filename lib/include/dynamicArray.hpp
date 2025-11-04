@@ -25,7 +25,7 @@ public:
     : m_size{ size}
     , m_capacity{ m_size }
     {
-        m_arr = new type_name [m_size];
+        m_arr = new type_name [m_size]{};
     }
 
     DynamicArray(std::initializer_list<T> list)
