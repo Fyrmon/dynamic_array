@@ -4,8 +4,7 @@
 
 int main()
 {
-    DynamicArray<int> arr{1,2,3,4,5,6,88,66};
-    DynamicArray<int> second{arr};
-    std::cout<<second<<'\n';
+    DynamicArray<int> arr(5,1);
+    std::cout<<arr<<'\n';
     return 0;
 }

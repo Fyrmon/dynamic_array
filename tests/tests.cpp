@@ -9,6 +9,12 @@
 
 };
 
+TEST_F(DynamicArrayTest, SizeValueConstructor)
+{
+    DynamicArray<int> arr_with_size_val(5,1);
+    EXPECT_TRUE(arr_with_size_val==(std::initializer_list{1,1,1,1,1}));
+}
+
 TEST_F(DynamicArrayTest, SizeConstructor)
 {
     DynamicArray<int> arr_with_size(5);
