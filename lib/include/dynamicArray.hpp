@@ -21,7 +21,6 @@ private:
 public:
 
     DynamicArray() = delete;
-    // to do: Add others constructor...move,copy...
     DynamicArray(size_type size)
     : m_size{ size}
     , m_capacity{ m_size }
@@ -51,6 +50,17 @@ public:
     {
         for(size_type i{ 0 }; i < m_size; ++i)
             m_arr[i] = other[i];
+    }
+
+    DynamicArray(DynamicArray&& other) noexcept
+    : m_arr{other.m_arr}
+    , m_size{other.m_size}
+    , m_capacity{other.m_capacity}
+
+    {
+        other.m_arr=nullptr;
+        other.m_size=0;
+        other.m_capacity=0;
     }
     
     ~DynamicArray()

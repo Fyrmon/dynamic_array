@@ -9,6 +9,17 @@
 
 };
 
+TEST_F(DynamicArrayTest, MoveConstructor)
+{
+    DynamicArray<int> mv_arr{ std::move(testArr) };
+    EXPECT_TRUE(mv_arr==(std::initializer_list{1,2,3}));
+    EXPECT_TRUE(testArr.empty());
+
+    DynamicArray<int> mv_arr2{ std::move(testArr2)};
+    EXPECT_TRUE(mv_arr2==(std::initializer_list{1}));
+    EXPECT_TRUE(testArr2.empty());
+}
+
 TEST_F(DynamicArrayTest, SizeValueConstructor)
 {
     DynamicArray<int> arr_with_size_val(5,1);
