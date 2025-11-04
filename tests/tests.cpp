@@ -9,6 +9,13 @@
 
 };
 
+TEST_F(DynamicArrayTest, CopyConstructor)
+{
+    DynamicArray<int> copy_arr{ testArr };
+    EXPECT_TRUE(copy_arr==testArr);
+    EXPECT_EQ(copy_arr.size(), testArr.size());
+}
+
 TEST_F(DynamicArrayTest, Indexing)
 {
     EXPECT_EQ(testArr[1],2);
