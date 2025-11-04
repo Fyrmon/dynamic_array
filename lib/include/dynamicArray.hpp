@@ -1,5 +1,6 @@
 #ifndef DYNAMICARRAY_HPP
 #define DYNAMICARRAY_HPP
+#include <algorithm>
 #include <initializer_list>
 #include <iterator>
 #include <limits>
@@ -21,24 +22,19 @@ public:
 
     DynamicArray() = delete;
     // to do: Add others constructor...move,copy...
-    DynamicArray(int size)
-    : m_size{ (size > 0) ? size_type(size) : 1ul}
+    DynamicArray(size_type size)
+    : m_size{ size}
     , m_capacity{ m_size }
     {
-        m_arr = new type_name [m_size];
+        m_arr = new type_name [m_size]{};
     }
 
     DynamicArray(std::initializer_list<T> list)
-    : m_size{ list.size() }
-    , m_capacity{ m_size }
+    : DynamicArray(list.size())
     {
-        m_arr = new type_name[m_size];
         size_type i{0};
         for(auto it{ list.begin()}; it!=list.end(); ++it)
-        {
-            m_arr[i] = *it;
-            ++i;
-        }
+            m_arr[i++] = *it;
 
     }
 
@@ -46,7 +42,15 @@ public:
     : m_size{ size_type(size) }
     , m_capacity{ m_size }
     {
-        m_arr = new type_name[m_size]{value};
+        m_arr = new type_name[m_size];
+        std::fill(m_arr,m_arr+m_size, value);
+    }
+
+    DynamicArray(const DynamicArray& other)
+    :DynamicArray(other.size())
+    {
+        for(size_type i{ 0 }; i < m_size; ++i)
+            m_arr[i] = other[i];
     }
     
     ~DynamicArray()
@@ -211,6 +215,20 @@ public:
     }
 
     // OPERATOR OVERLOADS
+   bool operator==(const DynamicArray<T>& other) const
+    {
+        if( size() != other.size() ) 
+            return false;
+        
+        DynamicArray::size_type i { 0 };
+        for(auto it{ other.begin()}; it != other.end(); ++it)
+        {
+            if(m_arr[i++] != (*it))
+                return false;
+        }
+        return true;
+    }
+
     friend bool operator==(const DynamicArray<T>& arr, const std::initializer_list<T>& list)
     {
         if( arr.size() != list.size() ) 
