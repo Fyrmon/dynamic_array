@@ -34,7 +34,6 @@ public:
         size_type i{0};
         for(auto it{ list.begin()}; it!=list.end(); ++it)
             m_arr[i++] = *it;
-
     }
 
     DynamicArray(int size, const T value)
