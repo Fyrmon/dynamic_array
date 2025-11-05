@@ -64,19 +64,7 @@ public:
     
     DynamicArray(iterator start, iterator finish)
     {
-        const auto range = std::distance(start,finish);
-
-        m_size = range;
-        m_capacity = range;
-
-        if(m_size > 0)
-        {
-            m_arr = new type_name[m_size];
-            std::copy(start, finish, m_arr);
-        }
-        else
-            m_arr = nullptr;
-
+        deepCopy(start,finish);
     }
     
     ~DynamicArray()
@@ -95,6 +83,11 @@ public:
         m_arr = new type_name[m_size]{};
         
         std::fill(begin(), end(), value);
+    }
+
+    void assign(iterator start, iterator finish)
+    {
+        deepCopy(start,finish);
     }
 
     // ELEMENT ACCESS
@@ -289,6 +282,24 @@ public:
             out<<arr[i]<<' ';
         
         return out;
+    }
+
+    // HELPER
+private:
+    void deepCopy(iterator start, iterator finish)
+    {
+        const auto range = std::distance(start,finish);
+
+        m_size = range;
+        m_capacity = range;
+
+        if(m_size > 0)
+        {
+            m_arr = new type_name[m_size];
+            std::copy(start, finish, m_arr);
+        }
+        else
+            m_arr = nullptr;
     }
 };
 
