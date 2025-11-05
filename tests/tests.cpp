@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include <vector>
+#include <list>
 #include "dynamicArray.hpp"
 
  class DynamicArrayTest : public ::testing::Test
@@ -56,6 +58,34 @@ TEST_F(DynamicArrayTest, Assign)
 
     testArr.assign(3,3);
     EXPECT_TRUE(testArr==(std::initializer_list{3,3,3}));
+}
+
+TEST_F(DynamicArrayTest, AssignRange)
+{
+    std::vector<int> vec{ 99,98,97,96 };
+    testArr.assign_range(vec);
+    // untill there is a comparison function for std::containers
+    EXPECT_TRUE(testArr == (std::initializer_list{99,98,97,96}));
+    EXPECT_EQ( testArr.size(), vec.size() );
+
+    std::list<int> list{ 1,2,18 };
+    testArr2.assign_range(list);
+    EXPECT_TRUE(testArr2 == (std::initializer_list{1,2,18}));
+    EXPECT_EQ( testArr2.size(), list.size() );
+}
+
+TEST_F(DynamicArrayTest, AssignRangeIt)
+{
+    std::vector<int> vec{ 99,98,97,96 };
+    testArr.assign_range(vec.begin(), vec.end());
+    
+    EXPECT_TRUE(testArr == (std::initializer_list{99,98,97,96}));
+    EXPECT_EQ( testArr.size(), vec.size() );
+
+    std::list<int> list{ 1,2,18 };
+    testArr2.assign_range(list.begin(), list.end());
+    EXPECT_TRUE(testArr2 == (std::initializer_list{1,2,18}));
+    EXPECT_EQ( testArr2.size(), list.size() );
 }
 
 TEST_F(DynamicArrayTest, IteratorAssign)
