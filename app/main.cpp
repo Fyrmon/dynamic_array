@@ -11,7 +11,7 @@ int main()
     arr2.assign_range(a);
     std::cout<<arr2<<'\n';
 
-    arr2.assign_range(b);
+    arr2.assign_range(b.begin(), b.end());
     std::cout<<arr2<<'\n';    
     return 0;
 }

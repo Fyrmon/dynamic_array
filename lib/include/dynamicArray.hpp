@@ -114,6 +114,12 @@ public:
         }
     }
 
+    template<typename SourceIt>
+    void assign_range(SourceIt first, SourceIt last)
+    {
+        deepCopy(first,last);
+    }
+
     // ELEMENT ACCESS
 
     type_name& at(int i) 
