@@ -90,6 +90,11 @@ public:
         deepCopy(start,finish);
     }
 
+    void assign(const std::initializer_list l)
+    {
+        deepCopy(l.begin(), l.end());
+    }
+
     // ELEMENT ACCESS
 
     type_name& at(int i) 
@@ -289,17 +294,16 @@ private:
     void deepCopy(iterator start, iterator finish)
     {
         const auto range = std::distance(start,finish);
-
-        m_size = range;
-        m_capacity = range;
-
-        if(m_size > 0)
+        if(range > 0)
         {
+            m_size = range;
+            m_capacity = range;
+
+            delete[] m_arr;
             m_arr = new type_name[m_size];
+            
             std::copy(start, finish, m_arr);
         }
-        else
-            m_arr = nullptr;
     }
 };
 
