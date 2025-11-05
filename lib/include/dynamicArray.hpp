@@ -4,6 +4,7 @@
 #include <initializer_list>
 #include <iterator>
 #include <limits>
+#include <ranges>
 
 template<typename T>
 class DynamicArray
@@ -91,6 +92,32 @@ public:
     void assign(std::initializer_list<type_name> list)
     {
         deepCopy(list.begin(), list.end());
+    }
+
+    template<std::ranges::input_range Range>
+    void assign_range(Range&& source_range)
+    {
+        auto start{ std::ranges::begin(source_range)};
+        auto finish{ std::ranges::end(source_range)};
+
+        auto new_size = std::ranges::distance(start,finish);
+
+        if(new_size > 0 )
+        {
+            m_size = new_size;
+            m_capacity = new_size;
+            
+            delete[] m_arr;
+            m_arr = new type_name[m_size]{};
+
+            std::copy(start,finish,m_arr);
+        }
+    }
+
+    template<typename SourceIt>
+    void assign_range(SourceIt first, SourceIt last)
+    {
+        deepCopy(first,last);
     }
 
     // ELEMENT ACCESS
