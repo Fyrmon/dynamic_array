@@ -88,7 +88,7 @@ public:
         deepCopy(start,finish);
     }
 
-    void assign(const std::initializer_list<type_name> list)
+    void assign(std::initializer_list<type_name> list)
     {
         deepCopy(list.begin(), list.end());
     }
@@ -287,16 +287,18 @@ public:
         return out;
     }
 
-    // HELPER
+
 private:
-    void deepCopy(iterator start, iterator finish)
+    // HELPER PRIVATE METHODS
+    template<typename SourceIt>
+    void deepCopy(SourceIt start,SourceIt finish)
     {
         const auto range = std::distance(start,finish);
         if(range > 0)
         {
             m_size = range;
             m_capacity = range;
-
+            
             delete[] m_arr;
             m_arr = new type_name[m_size];
 

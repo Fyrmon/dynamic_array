@@ -68,6 +68,15 @@ TEST_F(DynamicArrayTest, IteratorAssign)
     EXPECT_TRUE(it_assign==testArr2);
 }
 
+TEST_F(DynamicArrayTest, InitListAssign)
+{
+    DynamicArray<int> arr{0,0};
+    arr.assign({1,2,3,4,5,6,6});
+    EXPECT_TRUE(arr==(std::initializer_list{1,2,3,4,5,6,6}));
+    EXPECT_EQ(arr.size(),7);
+    EXPECT_EQ(arr.capacity(),7);
+}
+
 TEST_F(DynamicArrayTest, Indexing)
 {
     EXPECT_EQ(testArr[1],2);
