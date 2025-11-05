@@ -31,9 +31,7 @@ public:
     DynamicArray(std::initializer_list<T> list)
     : DynamicArray(list.size())
     {
-        size_type i{0};
-        for(auto it{ list.begin()}; it!=list.end(); ++it)
-            m_arr[i++] = *it;
+        std::copy(list.begin(), list.end(), m_arr);
     }
 
     DynamicArray(int size, const T value)
@@ -90,9 +88,9 @@ public:
         deepCopy(start,finish);
     }
 
-    void assign(const std::initializer_list l)
+    void assign(const std::initializer_list<type_name> list)
     {
-        deepCopy(l.begin(), l.end());
+        deepCopy(list.begin(), list.end());
     }
 
     // ELEMENT ACCESS
@@ -301,7 +299,7 @@ private:
 
             delete[] m_arr;
             m_arr = new type_name[m_size];
-            
+
             std::copy(start, finish, m_arr);
         }
     }
