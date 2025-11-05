@@ -31,9 +31,7 @@ public:
     DynamicArray(std::initializer_list<T> list)
     : DynamicArray(list.size())
     {
-        size_type i{0};
-        for(auto it{ list.begin()}; it!=list.end(); ++it)
-            m_arr[i++] = *it;
+        std::copy(list.begin(), list.end(), m_arr);
     }
 
     DynamicArray(int size, const T value)
@@ -41,7 +39,7 @@ public:
     , m_capacity{ m_size }
     {
         m_arr = new type_name[m_size];
-        std::fill(m_arr,m_arr+m_size, value);
+        std::fill(begin(),end(), value);
     }
 
     DynamicArray(const DynamicArray& other)
@@ -62,26 +60,37 @@ public:
         other.m_capacity=0;
     }
     
-    DynamicArray(iterator begin, iterator end)
+    DynamicArray(iterator start, iterator finish)
     {
-        const auto range = std::distance(begin,end);
-
-        m_size = range;
-        m_capacity = range;
-
-        if(m_size > 0)
-        {
-            m_arr = new type_name[m_size];
-            std::copy(begin, end, m_arr);
-        }
-        else
-            m_arr = nullptr;
-
+        deepCopy(start,finish);
     }
     
     ~DynamicArray()
     {
         delete[] m_arr;
+    }
+
+    void assign(size_type size, type_name value)
+    {
+        if(size <= 0 )
+            return;
+        
+        m_size = size;
+        m_capacity = m_size;
+        delete[] m_arr;
+        m_arr = new type_name[m_size]{};
+        
+        std::fill(begin(), end(), value);
+    }
+
+    void assign(iterator start, iterator finish)
+    {
+        deepCopy(start,finish);
+    }
+
+    void assign(std::initializer_list<type_name> list)
+    {
+        deepCopy(list.begin(), list.end());
     }
 
     // ELEMENT ACCESS
@@ -276,6 +285,25 @@ public:
             out<<arr[i]<<' ';
         
         return out;
+    }
+
+
+private:
+    // HELPER PRIVATE METHODS
+    template<typename SourceIt>
+    void deepCopy(SourceIt start,SourceIt finish)
+    {
+        const auto range = std::distance(start,finish);
+        if(range > 0)
+        {
+            m_size = range;
+            m_capacity = range;
+            
+            delete[] m_arr;
+            m_arr = new type_name[m_size];
+
+            std::copy(start, finish, m_arr);
+        }
     }
 };
 

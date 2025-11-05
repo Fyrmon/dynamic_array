@@ -49,6 +49,34 @@ TEST_F(DynamicArrayTest, CopyConstructor)
     EXPECT_EQ(copy_arr.size(), testArr.size());
 }
 
+TEST_F(DynamicArrayTest, Assign)
+{
+    testArr.assign(5,6);
+    EXPECT_TRUE(testArr==(std::initializer_list{6,6,6,6,6}));
+
+    testArr.assign(3,3);
+    EXPECT_TRUE(testArr==(std::initializer_list{3,3,3}));
+}
+
+TEST_F(DynamicArrayTest, IteratorAssign)
+{
+    DynamicArray<int> it_assign{0,0};
+    it_assign.assign(testArr.begin(), testArr.end());
+    EXPECT_TRUE(it_assign==testArr);
+
+    it_assign.assign(testArr2.begin(), testArr2.end());
+    EXPECT_TRUE(it_assign==testArr2);
+}
+
+TEST_F(DynamicArrayTest, InitListAssign)
+{
+    DynamicArray<int> arr{0,0};
+    arr.assign({1,2,3,4,5,6,6});
+    EXPECT_TRUE(arr==(std::initializer_list{1,2,3,4,5,6,6}));
+    EXPECT_EQ(arr.size(),7);
+    EXPECT_EQ(arr.capacity(),7);
+}
+
 TEST_F(DynamicArrayTest, Indexing)
 {
     EXPECT_EQ(testArr[1],2);
