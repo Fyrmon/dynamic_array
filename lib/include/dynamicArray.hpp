@@ -41,7 +41,7 @@ public:
     , m_capacity{ m_size }
     {
         m_arr = new type_name[m_size];
-        std::fill(m_arr,m_arr+m_size, value);
+        std::fill(begin(),end(), value);
     }
 
     DynamicArray(const DynamicArray& other)
@@ -62,9 +62,9 @@ public:
         other.m_capacity=0;
     }
     
-    DynamicArray(iterator begin, iterator end)
+    DynamicArray(iterator start, iterator finish)
     {
-        const auto range = std::distance(begin,end);
+        const auto range = std::distance(start,finish);
 
         m_size = range;
         m_capacity = range;
@@ -72,7 +72,7 @@ public:
         if(m_size > 0)
         {
             m_arr = new type_name[m_size];
-            std::copy(begin, end, m_arr);
+            std::copy(start, finish, m_arr);
         }
         else
             m_arr = nullptr;
@@ -82,6 +82,19 @@ public:
     ~DynamicArray()
     {
         delete[] m_arr;
+    }
+
+    void assign(size_type size, type_name value)
+    {
+        if(size <= 0 )
+            return;
+        
+        m_size = size;
+        m_capacity = m_size;
+        delete[] m_arr;
+        m_arr = new type_name[m_size]{};
+        
+        std::fill(begin(), end(), value);
     }
 
     // ELEMENT ACCESS

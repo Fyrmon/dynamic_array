@@ -49,6 +49,15 @@ TEST_F(DynamicArrayTest, CopyConstructor)
     EXPECT_EQ(copy_arr.size(), testArr.size());
 }
 
+TEST_F(DynamicArrayTest, Assign)
+{
+    testArr.assign(5,6);
+    EXPECT_TRUE(testArr==(std::initializer_list{6,6,6,6,6}));
+
+    testArr.assign(3,3);
+    EXPECT_TRUE(testArr==(std::initializer_list{3,3,3}));
+}
+
 TEST_F(DynamicArrayTest, Indexing)
 {
     EXPECT_EQ(testArr[1],2);
