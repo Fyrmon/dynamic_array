@@ -216,6 +216,11 @@ public:
         return m_capacity;
     }
 
+    void shrink(int new_size)
+    { 
+        m_size = m_size < new_size ? m_size: new_size; 
+    }
+
     void shrink_to_fit()
     {
         if(m_capacity > m_size)
@@ -230,9 +235,13 @@ public:
         }
     }
 
-    void shrink(int new_size)
-    { 
-        m_size = m_size < new_size ? m_size: new_size; 
+    // MODIFIERS
+
+    void clear()
+    {
+        for(size_type i { 0 }; i < m_size; i++)
+            m_arr[i].~type_name();
+        m_size = 0;
     }
 
     // ITERATORS
