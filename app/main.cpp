@@ -8,8 +8,6 @@ int main()
         <<"\t Cap: "<<arr.capacity()<<'\n' << arr <<'\n';
 
     arr.insert((arr.end()),99);
-    // arr.insert((arr.end()),19);
-    // arr.insert((arr.end()),19);
     std::cout<<"After insert: \t Size: "<<arr.size() 
         <<"\t Cap: "<<arr.capacity()<<'\n'<< arr <<'\n';
 
