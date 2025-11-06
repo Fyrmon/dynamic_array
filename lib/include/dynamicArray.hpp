@@ -244,6 +244,28 @@ public:
         m_size = 0;
     }
 
+    void insert(const_iterator pos, const type_name& val)
+    {
+        size_type new_size = m_size+1;
+        size_type new_cap = new_size;
+        type_name* new_arr{ new type_name[new_size]};
+
+        const size_type target_i = std::distance(begin(),pos);
+
+        for(size_t i{ 0 }; i < target_i; ++i)
+            new_arr[i] = m_arr[i];
+        
+        new_arr[target_i] = val;
+
+        for(size_t i{ target_i }; i< size(); i++)
+            new_arr[i+1] = m_arr[i];
+
+        delete[] m_arr;
+        m_arr = new_arr;
+        m_size = new_size;
+        m_capacity = new_cap;
+    }
+
     // ITERATORS
     iterator begin() const
     { 
@@ -329,11 +351,11 @@ private:
     template<typename SourceIt>
     void deepCopy(SourceIt start,SourceIt finish)
     {
-        const auto range = std::distance(start,finish);
-        if(range > 0)
+        const auto r = std::distance(start,finish);
+        if(r > 0)
         {
-            m_size = range;
-            m_capacity = range;
+            m_size = r;
+            m_capacity = r;
             
             delete[] m_arr;
             m_arr = new type_name[m_size];
