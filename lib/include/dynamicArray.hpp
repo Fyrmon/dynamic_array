@@ -266,6 +266,29 @@ public:
         m_capacity = new_cap;
     }
 
+    void insert(const_iterator pos, size_type count,  const type_name& val)
+    {
+        size_type new_size = m_size+count;
+        size_type new_cap = new_size;
+        type_name* new_arr{ new type_name[new_size]};
+
+        const size_type target_i = std::distance(begin(),pos);
+
+        for(size_t i{ 0 }; i < target_i; ++i)
+            new_arr[i] = m_arr[i];
+        
+        for(size_type i{1}; i<=count; ++i )
+            new_arr[target_i +(i-1)] = val;
+
+        for(size_t i{ target_i }; i< size(); i++)
+            new_arr[i+count] = m_arr[i];
+
+        delete[] m_arr;
+        m_arr = new_arr;
+        m_size = new_size;
+        m_capacity = new_cap;
+    }
+
     // ITERATORS
     iterator begin() const
     { 
