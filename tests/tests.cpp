@@ -189,6 +189,15 @@ TEST_F(DynamicArrayTest, Capacity)
     EXPECT_EQ(testArr.capacity(), 3);
 }
 
+
+TEST_F(DynamicArrayTest, Shrink)
+{
+    EXPECT_EQ(testArr.capacity(), 3);
+    testArr.shrink(1);
+    EXPECT_EQ(testArr.size(),1);
+    EXPECT_EQ(testArr.capacity(),3);
+}
+
 TEST_F(DynamicArrayTest, ShrinkToFit)
 {
     testArr.shrink(2);
@@ -201,12 +210,16 @@ TEST_F(DynamicArrayTest, ShrinkToFit)
     EXPECT_TRUE((testArr == std::initializer_list{1,2}));
 }
 
-TEST_F(DynamicArrayTest, Shrink)
+TEST_F(DynamicArrayTest, Clear)
 {
+    testArr.clear();
+    EXPECT_EQ(testArr.size(), 0);
     EXPECT_EQ(testArr.capacity(), 3);
-    testArr.shrink(1);
-    EXPECT_EQ(testArr.size(),1);
-    EXPECT_EQ(testArr.capacity(),3);
+
+    DynamicArray<std::string> str{"Abc","defg"};
+    EXPECT_EQ(str.size(), 2);
+    str.clear();
+    EXPECT_EQ(str.size(),0);
 }
 
 TEST_F(DynamicArrayTest, EqualityOperator)
