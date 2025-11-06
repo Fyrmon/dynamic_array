@@ -1,13 +1,15 @@
 #include <iostream>
 #include "dynamicArray.hpp"
-#include <string>
+
 int main()
 {
-    DynamicArray<int> arr{1,2};
-    DynamicArray<std::string> strings{ "1,23,4", "abc"};
-    std::cout<<strings<<'\n';
-    strings.clear();
-    std::cout<<"Size: "<<strings.size()<<"\tCapacity"
-            <<strings.capacity()<<'\n';
+    DynamicArray<int> arr{1,2,3,4,5,6};
+    std::cout<<"Initial arr: \t Size: "<<arr.size() 
+        <<"\t Cap: "<<arr.capacity()<<'\n' << arr <<'\n';
+
+    arr.insert((arr.end()),5,99);
+    std::cout<<"After insert: \t Size: "<<arr.size() 
+        <<"\t Cap: "<<arr.capacity()<<'\n'<< arr <<'\n';
+
     return 0;
 }
