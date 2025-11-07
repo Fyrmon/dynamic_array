@@ -316,6 +316,32 @@ public:
         m_capacity = new_cap;
     }
 
+    void insert(size_type pos, const_iterator start, const_iterator end)
+    {
+        if(pos <0 || pos > m_size) return;
+        const size_type it_size = std::distance(start,end);
+
+        size_type new_size = m_size+it_size;
+        size_type new_cap = new_size;
+        type_name* new_arr{ new type_name[new_size]};
+
+        for(size_type i{0}; i < pos; ++i)
+            new_arr[i] = std::move(m_arr[i]);
+
+        // implement push_back soon....
+        size_type i{ pos };
+        for(auto it{ start }; it!= end; ++it)
+            new_arr[i++] = *it;
+
+        for( size_type j{ pos }; j<m_size; ++j)
+            new_arr[i++] = std::move(m_arr[j]);
+
+        delete[] m_arr;
+        m_arr = new_arr;
+        m_size = new_size;
+        m_capacity = new_cap;
+    }
+
     // ITERATORS
     iterator begin() const
     { 
