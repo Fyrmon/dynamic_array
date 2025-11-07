@@ -252,6 +252,21 @@ TEST_F(DynamicArrayTest, InsertWithCount)
     EXPECT_EQ(testArr.size(), testArr.capacity());
 }
 
+TEST_F(DynamicArrayTest, InsertWithInitList)
+{
+    testArr.insert(testArr.begin(),{99,88,77});
+    EXPECT_EQ(testArr,(std::initializer_list{99,88,77,1,2,3}));
+
+    EXPECT_EQ(testArr.size(),6);
+    EXPECT_EQ(testArr.size(), testArr.capacity());
+
+    testArr2.insert(testArr2.end(),{2,3,4});
+    EXPECT_EQ(testArr2,(std::initializer_list{1,2,3,4}));
+
+    EXPECT_EQ(testArr2.size(),4);
+    EXPECT_EQ(testArr2.size(), testArr2.capacity());
+}
+
 TEST_F(DynamicArrayTest, EqualityOperator)
 {
     EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
