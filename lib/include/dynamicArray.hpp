@@ -277,11 +277,64 @@ public:
         for(size_t i{ 0 }; i < target_i; ++i)
             new_arr[i] = m_arr[i];
         
+            // use push_back when its implemented
         for(size_type i{1}; i<=count; ++i )
             new_arr[target_i +(i-1)] = val;
 
         for(size_t i{ target_i }; i< size(); i++)
             new_arr[i+count] = m_arr[i];
+
+        delete[] m_arr;
+        m_arr = new_arr;
+        m_size = new_size;
+        m_capacity = new_cap;
+    }
+
+    void insert(const_iterator pos, std::initializer_list<type_name> list)
+    {
+        const size_type list_size{ list.size() };
+        if( !(list_size > 0) ) return;
+
+        size_type new_size = m_size+list_size;
+        size_type new_cap = new_size;
+        type_name* new_arr{ new type_name[new_size]};
+
+        const size_type target_i = std::distance(begin(),pos);
+
+        for(size_t i{ 0 }; i < target_i; ++i)
+            new_arr[i] = m_arr[i];
+        
+         for(size_type i{0}; i<list_size; ++i )
+             new_arr[target_i+i] = std::data(list)[i];
+
+        for(size_t i{ target_i }; i< size(); i++)
+            new_arr[i+list_size] = m_arr[i];
+
+        delete[] m_arr;
+        m_arr = new_arr;
+        m_size = new_size;
+        m_capacity = new_cap;
+    }
+
+    void insert(size_type pos, const_iterator start, const_iterator end)
+    {
+        if(pos <0 || pos > m_size) return;
+        const size_type it_size = std::distance(start,end);
+
+        size_type new_size = m_size+it_size;
+        size_type new_cap = new_size;
+        type_name* new_arr{ new type_name[new_size]};
+
+        for(size_type i{0}; i < pos; ++i)
+            new_arr[i] = std::move(m_arr[i]);
+
+        // implement push_back soon....
+        size_type i{ pos };
+        for(auto it{ start }; it!= end; ++it)
+            new_arr[i++] = *it;
+
+        for( size_type j{ pos }; j<m_size; ++j)
+            new_arr[i++] = std::move(m_arr[j]);
 
         delete[] m_arr;
         m_arr = new_arr;

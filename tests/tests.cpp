@@ -245,11 +245,36 @@ TEST_F(DynamicArrayTest, InsertWithCount)
     testArr.insert(testArr.begin(),2,11);
     EXPECT_EQ(testArr,(std::initializer_list{11,11,1,2,3,99,99,99}));
 
-    testArr.insert((testArr.begin()+2) ,2,0);
+    testArr.insert((std::next(testArr.begin(),2)) ,2,0);
     EXPECT_EQ(testArr,(std::initializer_list{11,11,0,0,1,2,3,99,99,99}));
 
     EXPECT_EQ(testArr.size(),10);
     EXPECT_EQ(testArr.size(), testArr.capacity());
+}
+
+TEST_F(DynamicArrayTest, InsertWithInitList)
+{
+    testArr.insert(testArr.begin(),{99,88,77});
+    EXPECT_EQ(testArr,(std::initializer_list{99,88,77,1,2,3}));
+
+    EXPECT_EQ(testArr.size(),6);
+    EXPECT_EQ(testArr.size(), testArr.capacity());
+
+    testArr2.insert(testArr2.end(),{2,3,4});
+    EXPECT_EQ(testArr2,(std::initializer_list{1,2,3,4}));
+
+    EXPECT_EQ(testArr2.size(),4);
+    EXPECT_EQ(testArr2.size(), testArr2.capacity());
+}
+
+TEST_F(DynamicArrayTest, InsertWithPosBeginEnd)
+{
+    DynamicArray<int> arr{10,12,14,16};
+    testArr.insert(2,arr.begin(),arr.end());
+    EXPECT_TRUE((testArr == std::initializer_list{1,2,10,12,14,16,3}));
+
+    testArr2.insert(1,arr.begin(),arr.end());
+    EXPECT_TRUE((testArr2 == std::initializer_list{1,10,12,14,16}));
 }
 
 TEST_F(DynamicArrayTest, EqualityOperator)
@@ -294,31 +319,31 @@ TEST_F(DynamicArrayTest, End)
 
 TEST_F(DynamicArrayTest, Rbegin)
 {
-    EXPECT_EQ(*(testArr.rbegin()), *(testArr.end()-1));
+    EXPECT_EQ(*(testArr.rbegin()), (*std::prev(testArr.end(),1)));
     EXPECT_EQ(*(testArr.rbegin()), 3);
-    EXPECT_EQ(*(testArr.rbegin()+1), 2);
+    EXPECT_EQ(*(std::next(testArr.rbegin(),1)), 2);
 
-    EXPECT_EQ(*(testArr2.rbegin()), *(testArr2.end()-1));
+    EXPECT_EQ(*(testArr2.rbegin()), (*std::prev(testArr2.end(),1)));
     EXPECT_EQ(*(testArr2.rbegin()), 1);
 }
 
 TEST_F(DynamicArrayTest, Crbegin)
 {
-    EXPECT_EQ(*(testArr.crbegin()), *(testArr.end()-1));
+    EXPECT_EQ(*(testArr.crbegin()), *std::prev(testArr.end(),1));
     EXPECT_EQ(*(testArr.crbegin()), 3);
 
-    EXPECT_EQ(*(testArr2.crbegin()), *(testArr2.end()-1));
+    EXPECT_EQ(*(testArr2.crbegin()), *std::prev(testArr2.end(),1));
     EXPECT_EQ(*(testArr2.crbegin()), 1);
 }
 
 TEST_F(DynamicArrayTest, Rend)
 {
-    EXPECT_EQ(*(testArr.rend()-1), *testArr.begin());
-    EXPECT_EQ(*(testArr.rend()-1),1);
-    EXPECT_EQ(*(testArr.rend()-2),2);
+    EXPECT_EQ(*std::prev(testArr.rend(),1), *testArr.begin());
+    EXPECT_EQ(*std::prev(testArr.rend(),1),1);
+    EXPECT_EQ(*std::prev(testArr.rend(),2),2);
 
-    EXPECT_EQ(*(testArr2.rend()-1), *testArr2.begin());
-    EXPECT_EQ(*(testArr2.rend()-1),1);
+    EXPECT_EQ(*std::prev(testArr2.rend(),1), *testArr2.begin());
+    EXPECT_EQ(*std::prev(testArr2.rend(),1),1);
 }
 
 TEST_F(DynamicArrayTest, Crend)
