@@ -328,7 +328,6 @@ public:
         for(size_type i{0}; i < pos; ++i)
             new_arr[i] = std::move(m_arr[i]);
 
-        // implement push_back soon....
         size_type i{ pos };
         for(auto it{ start }; it!= end; ++it)
             new_arr[i++] = *it;
@@ -364,6 +363,11 @@ public:
         m_size = new_size;
         m_capacity = new_size;
 
+    }
+
+    void pop_back()
+    {
+        m_size = m_size <1 ? 0 : m_size-1; 
     }
 
     // ITERATORS
