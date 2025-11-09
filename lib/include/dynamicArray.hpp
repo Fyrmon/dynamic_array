@@ -342,6 +342,30 @@ public:
         m_capacity = new_cap;
     }
 
+    void push_back(type_name val)
+    {
+        size_type new_size{m_size+1};
+
+        if(m_capacity < new_size)
+        {
+            type_name* new_arr{ new type_name[new_size]};
+    
+            for(size_type i{0}; i< m_size; ++i)
+                new_arr[i] = std::move(m_arr[i]);
+    
+            new_arr[new_size-1] = std::move(val);
+
+            delete[] m_arr;
+            m_arr = new_arr;
+        }
+        else
+            m_arr[new_size-1] = val;
+        
+        m_size = new_size;
+        m_capacity = new_size;
+
+    }
+
     // ITERATORS
     iterator begin() const
     { 

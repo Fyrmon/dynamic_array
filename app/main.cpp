@@ -4,13 +4,10 @@
 int main()
 {
     DynamicArray<int> arr{1,2,3,4,5,6};
-    std::cout<<"Initial arr: \t Size: "<<arr.size() 
-        <<"\t Cap: "<<arr.capacity()<<'\n' << arr <<'\n';
-
-    DynamicArray<int> arr2{10,11,12,13};
-    arr.insert(1, arr2.begin(), std::prev(arr2.end(),2) );
-    std::cout<<"After insert: \t Size: "<<arr.size() 
-        <<"\t Cap: "<<arr.capacity()<<'\n'<< arr <<'\n';
-
+    
+    arr.push_back(12);
+    arr.reserve(8);
+    arr.push_back(33);
+    std::cout<<arr<<'\n';
     return 0;
 }
