@@ -328,7 +328,6 @@ public:
         for(size_type i{0}; i < pos; ++i)
             new_arr[i] = std::move(m_arr[i]);
 
-        // implement push_back soon....
         size_type i{ pos };
         for(auto it{ start }; it!= end; ++it)
             new_arr[i++] = *it;
