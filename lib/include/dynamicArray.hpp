@@ -366,6 +366,11 @@ public:
 
     }
 
+    void pop_back()
+    {
+        m_size = m_size <1 ? 0 : m_size-1; 
+    }
+
     // ITERATORS
     iterator begin() const
     { 
