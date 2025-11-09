@@ -277,6 +277,20 @@ TEST_F(DynamicArrayTest, InsertWithPosBeginEnd)
     EXPECT_TRUE((testArr2 == std::initializer_list{1,10,12,14,16}));
 }
 
+TEST_F(DynamicArrayTest, PushBack)
+{
+    size_t old_size{ testArr.size()};
+    size_t old_capacity{testArr.capacity()};
+
+    testArr.push_back(55);
+    EXPECT_TRUE((testArr == std::initializer_list{1,2,3,55}));
+    EXPECT_NE(old_size, testArr.size());
+    EXPECT_NE(old_capacity, testArr.capacity());
+    EXPECT_EQ(testArr.size(),4);
+    EXPECT_EQ(testArr.capacity(),4);
+
+}
+
 TEST_F(DynamicArrayTest, EqualityOperator)
 {
     EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
