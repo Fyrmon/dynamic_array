@@ -303,6 +303,18 @@ TEST_F(DynamicArrayTest, PopBack)
     EXPECT_EQ(testArr2.size(), 0);
 }
 
+TEST_F(DynamicArrayTest, Swap)
+{
+    testArr.swap(testArr2);
+    EXPECT_TRUE((testArr == std::initializer_list{1}));
+    EXPECT_EQ(testArr.size(), 1);
+    EXPECT_EQ(testArr.capacity(), 1);
+
+    EXPECT_TRUE((testArr2 == std::initializer_list{1,2,3}));
+    EXPECT_EQ(testArr2.size(), 3);
+    EXPECT_EQ(testArr2.capacity(), 3);
+}
+
 TEST_F(DynamicArrayTest, EqualityOperator)
 {
     EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));

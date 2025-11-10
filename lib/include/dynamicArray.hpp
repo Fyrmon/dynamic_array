@@ -365,9 +365,16 @@ public:
 
     }
 
-    void pop_back()
+    void pop_back() noexcept
     {
         m_size = m_size <1 ? 0 : m_size-1; 
+    }
+
+    void swap(DynamicArray<type_name>& other) noexcept
+    {
+        std::swap(m_arr,other.m_arr);
+        std::swap(m_capacity,other.m_capacity);
+        std::swap(m_size,other.m_size);
     }
 
     // ITERATORS
