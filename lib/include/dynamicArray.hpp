@@ -5,6 +5,7 @@
 #include <iterator>
 #include <limits>
 #include <ranges>
+#include <memory>
 
 template<typename T>
 class DynamicArray
@@ -375,6 +376,38 @@ public:
         std::swap(m_arr,other.m_arr);
         std::swap(m_capacity,other.m_capacity);
         std::swap(m_size,other.m_size);
+    }
+
+    template<typename R>
+    void append_range(R&& rg)
+    {
+        size_type rg_size{ size_type(std::distance(rg.begin(), rg.end()))};
+        size_type new_size{ rg_size + m_size };
+
+        if(new_size > m_capacity)
+        {
+            size_type new_capacity{ std::max(m_capacity*2, new_size)} ;
+            type_name* new_arr{ nullptr };
+            new_arr = static_cast<type_name*>(::operator new(new_capacity*sizeof(type_name)));
+            std::uninitialized_copy(
+                    std::make_move_iterator(begin()),
+                    std::make_move_iterator(end()),
+                    new_arr
+            );
+
+            std::uninitialized_copy(rg.begin(), rg.end(), new_arr+m_size);
+
+            m_size = new_size;
+            m_capacity = new_capacity;
+
+            delete[] m_arr;
+            m_arr = new_arr;
+        }
+        else
+        {
+            std::uninitialized_copy(rg.begin(), rg.end(), m_arr+m_size);
+            m_size = new_size;
+        }
     }
 
     // ITERATORS
