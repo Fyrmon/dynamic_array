@@ -315,6 +315,15 @@ TEST_F(DynamicArrayTest, Swap)
     EXPECT_EQ(testArr2.capacity(), 3);
 }
 
+TEST_F(DynamicArrayTest, AppendRange)
+{
+    std::vector<int> vec{4,5,6};
+    testArr.append_range(vec);
+    EXPECT_TRUE((testArr == std::initializer_list{1,2,3,4,5,6}));
+    EXPECT_EQ(testArr.size(), 6);
+    EXPECT_EQ(testArr.capacity(), 6);
+}
+
 TEST_F(DynamicArrayTest, EqualityOperator)
 {
     EXPECT_TRUE((testArr == std::initializer_list{1,2,3}));
