@@ -410,6 +410,11 @@ public:
         }
     }
 
+    void emplace_back(type_name val)
+    {
+        push_back(val);
+    }
+
     // ITERATORS
     iterator begin() const
     { 
